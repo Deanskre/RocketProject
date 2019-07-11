@@ -1,5 +1,3 @@
-#include <SD.h>
-
 
 #include <Wire.h>
 #include "MPL3115A2.h"
@@ -13,13 +11,15 @@ File dataFile;
 MPL3115A2 myPressure;
 MPU6050 mpu6050(Wire);
 
-int led = 9;
 float start;
 
 void setup()
 {
   Wire.begin();       
   Serial.begin(9600);  
+  
+  pinMode(9, OUTPUT); //LED
+  digitalWrite(9, HIGH);
   
   pinMode(10, OUTPUT);
   SD.begin(10);
@@ -33,13 +33,13 @@ void setup()
   myPressure.enableEventFlags(); 
 
   Serial.println("Calibration complete.");
+  digitalWrite(9, LOW);
 
   start = millis();
 }
 
 void loop()
 {
-  String dataString = "";
   dataFile = SD.open("datalog.txt", FILE_WRITE);
 
   double T = (millis()-start)/1000;
