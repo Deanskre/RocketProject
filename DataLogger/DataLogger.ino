@@ -32,9 +32,12 @@ void setup()
   myPressure.setOversampleRate(7);
   myPressure.enableEventFlags(); 
 
+  dataFile = SD.open("datalog.txt", FILE_WRITE);
+  dataFile.println("Time\tAltitude\taccX\taccy\taccZ\taccAngleX\taccAnglyeY\tgyroAngleX\tgyroAngleY\tgyroAngleZ");
+  dataFile.close();
+  
   Serial.println("Calibration complete.");
   digitalWrite(9, LOW);
-
   start = millis();
 }
 
@@ -43,31 +46,21 @@ void loop()
   dataFile = SD.open("datalog.txt", FILE_WRITE);
 
   double T = (millis()-start)/1000;
-  dataFile.print(T); dataFile.println(" seconds");
+  dataFile.print(T);
   
-  dataFile.print("Altitude(ft):");
-  dataFile.println(myPressure.readAltitudeFt(), 2);
+  dataFile.print("\t"); dataFile.print(myPressure.readAltitudeFt(), 2);
 
   mpu6050.update();
-  dataFile.print("accX : "); dataFile.print(mpu6050.getAccX());
-  dataFile.print("\taccY : "); dataFile.print(mpu6050.getAccY());
-  dataFile.print("\taccZ : "); dataFile.println(mpu6050.getAccZ());
+  dataFile.print("\t"); dataFile.print(mpu6050.getAccX());
+  dataFile.print("\t"); dataFile.print(mpu6050.getAccY());
+  dataFile.print("\t"); dataFile.print(mpu6050.getAccZ());
+
+  dataFile.print("\t"); dataFile.print(mpu6050.getAccAngleX());
+  dataFile.print("\t"); dataFile.print(mpu6050.getAccAngleY());
   
-  dataFile.print("gyroX : "); dataFile.print(mpu6050.getGyroX());
-  dataFile.print("\tgyroY : "); dataFile.print(mpu6050.getGyroY());
-  dataFile.print("\tgyroZ : "); dataFile.println(mpu6050.getGyroZ());
-  
-  dataFile.print("accAngleX : "); dataFile.print(mpu6050.getAccAngleX());
-  dataFile.print("\taccAngleY : "); dataFile.println(mpu6050.getAccAngleY());
-  
-  dataFile.print("gyroAngleX : "); dataFile.print(mpu6050.getGyroAngleX());
-  dataFile.print("\tgyroAngleY : "); dataFile.print(mpu6050.getGyroAngleY());
-  dataFile.print("\tgyroAngleZ : "); dataFile.println(mpu6050.getGyroAngleZ());
-    
-  dataFile.print("angleX : "); dataFile.print(mpu6050.getAngleX());
-  dataFile.print("\tangleY : "); dataFile.print(mpu6050.getAngleY());
-  dataFile.print("\tangleZ : "); dataFile.println(mpu6050.getAngleZ());
-  dataFile.println("\n");
+  dataFile.print("\t"); dataFile.print(mpu6050.getGyroAngleX());
+  dataFile.print("\t"); dataFile.print(mpu6050.getGyroAngleY());
+  dataFile.print("\t"); dataFile.println(mpu6050.getGyroAngleZ());
 
   dataFile.close();
 }

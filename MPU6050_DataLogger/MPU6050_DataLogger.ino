@@ -29,7 +29,7 @@ void setup()
   digitalWrite(9, LOW);
 
   dataFile = SD.open("datalog.txt", FILE_WRITE);
-  dataFile.println("Time\tAngleX\tAngleY\tAngleZ");
+  dataFile.println("Time\taccX\taccY\taccZ\taccAngleX\taccAngleY\tgyroAngleX\tgyroAngleY\tgyroAngleZ");
   dataFile.close();
   
   start = millis();
@@ -42,9 +42,16 @@ void loop()
   double T = (millis()-start)/1000;
   
   dataFile.print(T);
-  dataFile.print("\t"); dataFile.print(mpu6050.getAngleX());
-  dataFile.print("\t"); dataFile.print(mpu6050.getAngleY());
-  dataFile.print("\t"); dataFile.println(mpu6050.getAngleZ());
+  dataFile.print("\t"); dataFile.print(mpu6050.getAccX());
+  dataFile.print("\t"); dataFile.print(mpu6050.getAccY());
+  dataFile.print("\t"); dataFile.print(mpu6050.getAccZ());
+
+  dataFile.print("\t"); dataFile.print(mpu6050.getAccAngleX());
+  dataFile.print("\t"); dataFile.print(mpu6050.getAccAngleY());
+  
+  dataFile.print("\t"); dataFile.print(mpu6050.getGyroAngleX());
+  dataFile.print("\t"); dataFile.print(mpu6050.getGyroAngleY());
+  dataFile.print("\t"); dataFile.println(mpu6050.getGyroAngleZ());
   
   dataFile.close();
 }
