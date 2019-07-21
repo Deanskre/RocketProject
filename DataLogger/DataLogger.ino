@@ -33,7 +33,7 @@ void setup()
   myPressure.enableEventFlags(); 
 
   dataFile = SD.open("datalog.txt", FILE_WRITE);
-  dataFile.println("Time\tAltitude\taccX\taccy\taccZ\taccAngleX\taccAnglyeY\tgyroAngleX\tgyroAngleY\tgyroAngleZ");
+  dataFile.println("Time\tAltitude\taccX\taccy\taccZ\tgyroX\tgyroY\tgyroZ");
   dataFile.close();
   
   Serial.println("Calibration complete.");
@@ -54,13 +54,10 @@ void loop()
   dataFile.print("\t"); dataFile.print(mpu6050.getAccX());
   dataFile.print("\t"); dataFile.print(mpu6050.getAccY());
   dataFile.print("\t"); dataFile.print(mpu6050.getAccZ());
-
-  dataFile.print("\t"); dataFile.print(mpu6050.getAccAngleX());
-  dataFile.print("\t"); dataFile.print(mpu6050.getAccAngleY());
   
-  dataFile.print("\t"); dataFile.print(mpu6050.getGyroAngleX());
-  dataFile.print("\t"); dataFile.print(mpu6050.getGyroAngleY());
-  dataFile.print("\t"); dataFile.println(mpu6050.getGyroAngleZ());
+  dataFile.print("\t"); dataFile.print(mpu6050.getGyroX());
+  dataFile.print("\t"); dataFile.print(mpu6050.getGyroY());
+  dataFile.print("\t"); dataFile.println(mpu6050.getGyroZ());
 
   dataFile.close();
 }
