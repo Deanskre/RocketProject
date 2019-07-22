@@ -11,16 +11,15 @@ File dataFile;
 MPL3115A2 myPressure;
 MPU6050 mpu6050(Wire);
 
+int buzzer = 4;
+
 float start;
 
 void setup()
 {
   Wire.begin();       
   Serial.begin(9600);  
-  
-  pinMode(9, OUTPUT); //LED
-  digitalWrite(9, HIGH);
-  
+  pinMode(buzzer, OUTPUT);
   pinMode(10, OUTPUT);
   SD.begin(10);
   
@@ -37,8 +36,11 @@ void setup()
   dataFile.close();
   
   Serial.println("Calibration complete.");
-  digitalWrite(9, LOW);
+  digitalWrite(buzzer, HIGH);
+  delay(600);
+  digitalWrite(buzzer, LOW);
   start = millis();
+  
 }
 
 void loop()

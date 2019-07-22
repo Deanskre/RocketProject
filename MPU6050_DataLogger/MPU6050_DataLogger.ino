@@ -16,8 +16,8 @@ void setup()
   Wire.begin();       
   Serial.begin(9600);  
   
-  pinMode(9, OUTPUT); //LED
-  digitalWrite(9, HIGH);
+  pinMode(buzzer, OUTPUT); //buzzer
+  
   
   pinMode(10, OUTPUT);
   SD.begin(10);
@@ -32,6 +32,9 @@ void setup()
   dataFile.println("Time\tgyroX\tgyroY\tgyroZ\tgyroAngleX\tgyroAngleY\tangleX\tangleY\tangleZ");
   dataFile.close();
   
+  digitalWrite(buzzer, HIGH);
+  delay(600);
+  digitalWrite(buzzer, LOW);
   start = millis();
 }
 

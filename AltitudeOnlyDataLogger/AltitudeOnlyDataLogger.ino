@@ -9,6 +9,8 @@ File dataFile;
 
 MPL3115A2 myPressure;
 
+int buzzer = 4;
+
 float start;
 
 void setup()
@@ -16,8 +18,7 @@ void setup()
   Wire.begin();       
   Serial.begin(9600);  
   
-  pinMode(9, OUTPUT); //LED
-  digitalWrite(9, HIGH);
+  pinMode(buzzer, OUTPUT); 
   
   pinMode(10, OUTPUT);
   SD.begin(10);
@@ -28,11 +29,13 @@ void setup()
   myPressure.enableEventFlags(); 
 
   Serial.println("Calibration complete.");
-  digitalWrite(9, LOW);
 
   dataFile = SD.open("datalog.txt", FILE_WRITE);
   dataFile.println("Time (s)\tAltitude (ft)");
   dataFile.close();
+  digitalWrite(buzzer, HIGH);
+  delay(600);
+  digitalWrite(buzzer, LOW);
   start = millis();
 }
 
