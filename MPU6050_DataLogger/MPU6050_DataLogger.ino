@@ -9,6 +9,8 @@ File dataFile;
 
 MPU6050 mpu6050(Wire);
 
+int buzzer = 4;
+
 float start;
 
 void setup()
@@ -29,7 +31,7 @@ void setup()
   digitalWrite(9, LOW);
 
   dataFile = SD.open("datalog.txt", FILE_WRITE);
-  dataFile.println("Time\tgyroX\tgyroY\tgyroZ\tgyroAngleX\tgyroAngleY\tangleX\tangleY\tangleZ");
+  dataFile.println("Time\tgyroX\tgyroY\tgyroZ\tgyroAngleX\tgyroAngleY\tgyroAngleZ\tangleX\tangleY\tangleZ");
   dataFile.close();
   
   digitalWrite(buzzer, HIGH);
