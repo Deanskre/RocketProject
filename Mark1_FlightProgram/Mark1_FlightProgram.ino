@@ -93,7 +93,7 @@ void parachuteControl() {
   if (freefallTime != 0 && freefall) {
     freefallTime = millis();
   }
-  if (freefall && millis() >= freefallTime + 4000) {
+  if (freefall && millis() >= freefallTime + 3500) {
     digitalWrite(parachute, HIGH);
   }
 }
